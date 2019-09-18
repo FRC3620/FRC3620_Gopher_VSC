@@ -15,6 +15,7 @@ import org.usfirst.frc.team3620.robot.RobotMap;
 import org.usfirst.frc3620.logger.EventLogging;
 import org.usfirst.frc3620.logger.EventLogging.Level;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.PWMTalonSRX;
@@ -30,7 +31,7 @@ public class LidSubsystem extends Subsystem {
 	final int N_POSITIONS = vals.length;
 	int currentPosition = 0;
 
-	PWMTalonSRX lidTalonSRX = RobotMap.subsystem1TalonSRX1;
+	TalonSRX lidTalonSRX = RobotMap.subsystem1TalonSRX1;
 
 	public LidSubsystem() {
 		super();
@@ -51,22 +52,23 @@ public class LidSubsystem extends Subsystem {
 	}
 
 	public void manualLidUp() {
-		lidTalonSRX.set(-0.8);
+		lidTalonSRX.set(ControlMode.PercentOutput,-0.8);
 	}
 
 	public void manualLidDown() {
 		if (RobotMap.lidSensor.getVoltage() < 2) {
-			lidTalonSRX.set(0.6);
+			lidTalonSRX.set(ControlMode.PercentOutput,0.6);
 		} else {
-			lidTalonSRX.set(0.0);
+			lidTalonSRX.set(ControlMode.PercentOutput,0.0);
 		}
 	}
 
+	/*
 	public void bumpLidUp() {
 		if (currentPosition < N_POSITIONS) {
 			currentPosition = currentPosition + 1;
 			logger.info("new lift setpoint = {}", currentPosition);
-			lidTalonSRX.set(vals[currentPosition]);
+			lidTalonSRX.set(ControlMode.PercentOutput,vals[currentPosition]);
 		} else
 			logger.info("Cannot move further up");
 	}
@@ -75,13 +77,13 @@ public class LidSubsystem extends Subsystem {
 		if (currentPosition > 0) {
 			currentPosition = currentPosition - 1;
 			logger.info("new lift setpoint = {}", currentPosition);
-			lidTalonSRX.set(vals[currentPosition]);
+			lidTalonSRX.set(ControlMode.PercentOutput,vals[currentPosition]);
 		} else
 			logger.info("Cannot move further down");
 	}
-
+	*/
 	public void stopMotor() {
-		lidTalonSRX.set(0.0);
+		lidTalonSRX.set(ControlMode.PercentOutput,0.0);
 	}
 
 }

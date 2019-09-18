@@ -158,7 +158,7 @@ public class Robot extends IterativeRobot {
     }
 
     void allEndPeriodic() {
-    	SmartDashboard.putNumber("encoder", RobotMap.subsystem1TalonSRX1.getPosition());
+    	SmartDashboard.putNumber("encoder", RobotMap.subsystem1TalonSRX1.getSensorCollection().getQuadraturePosition());
     	SmartDashboard.putNumber("p1", RobotMap.pressureSensor1.getVoltage());
     	SmartDashboard.putNumber("p2", RobotMap.pressureSensor2.getVoltage());
     }

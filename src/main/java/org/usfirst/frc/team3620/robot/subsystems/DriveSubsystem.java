@@ -16,7 +16,7 @@ public class DriveSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	public void driveControl (Joystick joystick) {
-		robotDrive.arcadeDrive(joystick.getX(), joystick.getY());
+		robotDrive.arcadeDrive(joystick.getY(), -joystick.getX());
 	}
 
 	public void driveControl(double move, double rotate){

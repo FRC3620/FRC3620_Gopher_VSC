@@ -3,6 +3,7 @@ package org.usfirst.frc.team3620.robot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.Relay.Direction;
@@ -24,7 +25,7 @@ public class RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
-    public static PWMTalonSRX subsystem1TalonSRX1;
+    public static TalonSRX subsystem1TalonSRX1;
 
     public static PWMSpeedController driveSpeedController0;
     public static PWMSpeedController driveSpeedController1;
@@ -52,9 +53,9 @@ public class RobotMap {
 
     public static void init() {
 
-        subsystem1TalonSRX1 = new PWMTalonSRX(1);
-        subsystem1TalonSRX1.setName("Subsystem 1", "TalonSRX 1");
-        LiveWindow.add(subsystem1TalonSRX1);
+        subsystem1TalonSRX1 = new TalonSRX(1);
+        //subsystem1TalonSRX1.setName("Subsystem 1", "TalonSRX 1");
+        //LiveWindow.add(subsystem1TalonSRX1);
 
         driveSpeedController0 = new Talon(0);
         driveSpeedController0.setName("Drive", "Speed Controller 0");
@@ -72,54 +73,53 @@ public class RobotMap {
         robotDrive.setMaxOutput(1.0);
         // robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 
-        /** TODO - what do we need to do to get these on the dashboard?
-         * compressorRelay = new Relay(0, Direction.kForward);
-         * LiveWindow.addActuator("shooterSubsystem", "compressorRelay", compressorRelay);
-         * 
-         *         compressorSwitch = new DigitalInput(0);
-         * LiveWindow.addSensor("shooterSubsystem", "compressorSwitch", compressorSwitch);
+        /** TODO - what do we need to do to get these on the dashboard?*/
+          compressorRelay = new Relay(0, Direction.kForward);
+          LiveWindow.addActuator("shooterSubsystem", "compressorRelay", compressorRelay);
+          
+                  compressorSwitch = new DigitalInput(0);
+          LiveWindow.addSensor("shooterSubsystem", "compressorSwitch", compressorSwitch);
 
-         * lidSensor = new AnalogInput(0);
-         * LiveWindow.addSensor("shooterSubsystem", "lidSensor", lidSensor);
+          lidSensor = new AnalogInput(0);
+          LiveWindow.addSensor("shooterSubsystem", "lidSensor", lidSensor);
 
-         * pressureSensor1 = new AnalogInput(1);
-         * LiveWindow.addSensor("shooterSubsystem", "PressureSensor1", pressureSensor1);
+          pressureSensor1 = new AnalogInput(1);
+          LiveWindow.addSensor("shooterSubsystem", "PressureSensor1", pressureSensor1);
 
-         * pressureSensor2 = new AnalogInput(2);
-         * LiveWindow.addSensor("shooterSubsystem", "PressureSensor2", pressureSensor2);
+        pressureSensor2 = new AnalogInput(2);
+          LiveWindow.addSensor("shooterSubsystem", "PressureSensor2", pressureSensor2);
 
-         * pressureSensor3 = new AnalogInput(3);
-         * LiveWindow.addSensor("shooterSubsystem", "PressureSensor3", pressureSensor3);
+          pressureSensor3 = new AnalogInput(3);
+          LiveWindow.addSensor("shooterSubsystem", "PressureSensor3", pressureSensor3);
 
-         * valveMaster = new Relay(1, Direction.kForward);
-         * LiveWindow.addActuator("shooterSubsystem", "valveMaster", valveMaster);
+          valveMaster = new Relay(1, Direction.kForward);
+          LiveWindow.addActuator("shooterSubsystem", "valveMaster", valveMaster);
 
-         * fillValve1 = new DigitalOutput(1);
-         * LiveWindow.addActuator("shooterSubsystem", "fillValve1", fillValve1);
+          fillValve1 = new DigitalOutput(1);
+          LiveWindow.addActuator("shooterSubsystem", "fillValve1", fillValve1);
 
-         * tankValve1 = new DigitalOutput(2);
-         * LiveWindow.addActuator("shooterSubsystem", "tankValve1", tankValve1);
+          tankValve1 = new DigitalOutput(2);
+          LiveWindow.addActuator("shooterSubsystem", "tankValve1", tankValve1);
 
-         * shotValve1 = new DigitalOutput(3);
-         * LiveWindow.addActuator("shooterSubsystem", "shotValve1", shotValve1);
+          shotValve1 = new DigitalOutput(3);
+          LiveWindow.addActuator("shooterSubsystem", "shotValve1", shotValve1);
 
-         * fillValve2 = new DigitalOutput(4);
-         * LiveWindow.addActuator("shooterSubsystem", "fillValve2", fillValve2);
+          fillValve2 = new DigitalOutput(4);
+          LiveWindow.addActuator("shooterSubsystem", "fillValve2", fillValve2);
 
-         * tankValve2 = new DigitalOutput(5);
-         * LiveWindow.addActuator("shooterSubsystem", "tankValve2", tankValve2);
+          tankValve2 = new DigitalOutput(5);
+          LiveWindow.addActuator("shooterSubsystem", "tankValve2", tankValve2);
 
-         * shotValve2 = new DigitalOutput(6);
-         * LiveWindow.addActuator("shooterSubsystem", "shotValve2", shotValve2);
+          shotValve2 = new DigitalOutput(6);
+          LiveWindow.addActuator("shooterSubsystem", "shotValve2", shotValve2);
 
-         * fillValve3 = new DigitalOutput(7);
-         * LiveWindow.addActuator("shooterSubsystem", "fillValve3", fillValve3);
+          fillValve3 = new DigitalOutput(7);
+          LiveWindow.addActuator("shooterSubsystem", "fillValve3", fillValve3);
 
-         * tankValve3 = new DigitalOutput(8);
-         * LiveWindow.addActuator("shooterSubsystem", "tankValve3", tankValve3);
+         tankValve3 = new DigitalOutput(8);
+          LiveWindow.addActuator("shooterSubsystem", "tankValve3", tankValve3);
 
-         * shotValve3 = new DigitalOutput(9);
-         * LiveWindow.addActuator("shooterSubsystem", "shotValve3", shotValve3);
-         **/
+          shotValve3 = new DigitalOutput(9);
+          LiveWindow.addActuator("shooterSubsystem", "shotValve3", shotValve3);
     }
 }

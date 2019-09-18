@@ -16,7 +16,7 @@ public class BumpLidUpCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.lidSubsystem.bumpLidUp();
+    	//Robot.lidSubsystem.bumpLidUp();
     }
 
     // Called repeatedly when this Command is scheduled to run
