@@ -33,6 +33,7 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     
     // custom FRC 3620 stuff
+    public static RobotDriveMode driveMode = RobotDriveMode.ARCADE;
     static RobotMode currentRobotMode = RobotMode.INIT, previousRobotMode; 
     static Logger logger;
 

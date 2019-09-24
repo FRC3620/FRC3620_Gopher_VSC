@@ -15,7 +15,7 @@ public class OI {
 	
 	public Joystick driverJoystick;
 	
-	public JoystickButton requestFill0Button, requestFill1Button;
+	public JoystickButton buttonUp, buttonDown, buttonLeft, buttonRight, buttonTri, buttonSquare, buttonX, buttonO, buttonStart, buttonSelect;
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -46,25 +46,17 @@ public class OI {
 
 
 	public OI(){
-		driverJoystick = new Joystick(0);
-		
-		requestFill0Button = new JoystickButton(driverJoystick, 1);
-        requestFill0Button.whenPressed(new RequestFillCommand0());
-        requestFill1Button = new JoystickButton(driverJoystick, 2);
-        requestFill1Button.whenPressed(new RequestFillCommand1());
+        driverJoystick = new Joystick(0);
         
-//        requestShotButton = new JoystickButton(driverJoystick, 1);
-//        requestShotButton.whenPressed(new RequestShotCommand());
-        
-        SmartDashboard.putData("LiftDownCommand", new BumpLidDownCommand());
-        SmartDashboard.putData("LiftUpCommand", new BumpLidUpCommand());
-        SmartDashboard.putData("RapidFireCommand", new RapidFire());
-        
-        DPad dpad = new DPad(driverJoystick);
-        //dpad.getDown().whenPressed(new BumpLidDownCommand());
-        //dpad.getUp().whenPressed(new BumpLidUpCommand());
-        dpad.getDown().whileHeld(new ManualLidDownCommand());
-        dpad.getUp().whileHeld(new ManualLidUpCommand());
-
+        buttonLeft = new JoystickButton(driverJoystick, 1);
+        buttonDown = new JoystickButton(driverJoystick, 2);
+        buttonUp = new JoystickButton(driverJoystick, 3);
+        buttonRight = new JoystickButton(driverJoystick, 4);
+        buttonSquare = new JoystickButton(driverJoystick, 5); //Down Right
+        buttonTri = new JoystickButton(driverJoystick, 6); //Down Left
+        buttonX = new JoystickButton(driverJoystick, 7); //Up left
+        buttonO = new JoystickButton(driverJoystick, 8); //Up Right
+        buttonSelect = new JoystickButton(driverJoystick, 9);
+        buttonStart = new JoystickButton(driverJoystick, 10);
 	}
 }

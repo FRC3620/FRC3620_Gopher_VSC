@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3620.robot.commands;
 
 import org.usfirst.frc.team3620.robot.Robot;
+import org.usfirst.frc.team3620.robot.RobotDriveMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -21,7 +23,12 @@ public class DriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveSubsystem.driveControl(Robot.oi.driverJoystick);
+        if (Robot.driveMode == RobotDriveMode.ARCADE) {
+            Robot.driveSubsystem.arcadeDriveControl(Robot.oi.driverJoystick);
+        }
+        else if (Robot.driveMode == RobotDriveMode.TANK) {
+            Robot.driveSubsystem.tankDriveControl(Robot.oi.driverJoystick);
+        }
   	}
 
     // Make this return true when this Command no longer needs to run execute()
