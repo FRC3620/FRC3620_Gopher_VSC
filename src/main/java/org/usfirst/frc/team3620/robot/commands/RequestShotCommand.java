@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3620.robot.commands;
 
+import java.io.Console;
+
 import org.slf4j.Logger;
 import org.usfirst.frc.team3620.robot.Robot;
 import org.usfirst.frc3620.logger.EventLogging;
@@ -22,9 +24,8 @@ public class RequestShotCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
         logger.info ("shot requested");
-        if (! Robot.shooterSubsystem.requestShot()) {
-            rumbleCommand.start("no one available to shoot");
-        }
+        if (! Robot.shooterSubsystem.requestShot(0)) {logger.info("Barrel 0 not ready");}
+        if (! Robot.shooterSubsystem.requestShot(1)) {logger.info("Barrel 1 not ready");}
     }
 
     // Called repeatedly when this Command is scheduled to run

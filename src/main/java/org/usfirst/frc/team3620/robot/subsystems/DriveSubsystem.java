@@ -19,16 +19,16 @@ public class DriveSubsystem extends Subsystem {
 	
 	public void arcadeDriveControl (Joystick joystick) {
 		//if up and not down
-		if (joystick.getRawButton(3) && !joystick.getRawButton(2)) {xMove = 1.0;}
+		if (joystick.getRawButton(3) && !joystick.getRawButton(2)) {xMove = -1.0;}
 		//if down and not up
-		else if (joystick.getRawButton(2) && !joystick.getRawButton(3)) {xMove = -1.0;}
+		else if (joystick.getRawButton(2) && !joystick.getRawButton(3)) {xMove = 1.0;}
 		//if up and down OR not up nor down
 		else {xMove = 0.0;}
 
 		//if left and not right
-		if (joystick.getRawButton(1) && !joystick.getRawButton(4)) {yRotate = -1.0;}
+		if (joystick.getRawButton(1) && !joystick.getRawButton(4)) {yRotate = 1.0;}
 		//if right and not left
-		else if (joystick.getRawButton(4) && !joystick.getRawButton(1)) {yRotate = 1.0;}
+		else if (joystick.getRawButton(4) && !joystick.getRawButton(1)) {yRotate = -1.0;}
 		//if left and right OR not left nor right
 		else {yRotate = 0.0;}
 
@@ -39,9 +39,9 @@ public class DriveSubsystem extends Subsystem {
 		//xMove is left, yRotate is right
 
 		//if forward left and not backward left
-		if (joystick.getRawButton(7) && !joystick.getRawButton(6)) {xMove = 1.0;}
+		if (joystick.getRawButton(7) && !joystick.getRawButton(6)) {xMove = -1.0;}
 		//if backward left and not forward left
-		else if (joystick.getRawButton(6) && !joystick.getRawButton(7)) {xMove = -1.0;}
+		else if (joystick.getRawButton(6) && !joystick.getRawButton(7)) {xMove = 1.0;}
 		//if forward left and backward left OR not forward left nor backward left
 		else {xMove = 0.0;}
 

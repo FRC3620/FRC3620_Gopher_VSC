@@ -6,5 +6,5 @@ package org.usfirst.frc.team3620.robot;
 */
 
 public enum RobotDriveMode {
-    ARCADE, TANK;
+    ARCADE, TANK, FIRING;
 }

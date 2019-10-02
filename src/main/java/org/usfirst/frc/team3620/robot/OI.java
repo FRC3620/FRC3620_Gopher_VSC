@@ -58,5 +58,8 @@ public class OI {
         buttonO = new JoystickButton(driverJoystick, 8); //Up Right
         buttonSelect = new JoystickButton(driverJoystick, 9);
         buttonStart = new JoystickButton(driverJoystick, 10);
+
+        buttonSelect.whenPressed(new ChangeDriveModeCommand(false));
+        buttonStart.whenPressed(new ChangeDriveModeCommand(true));
 	}
 }

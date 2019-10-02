@@ -28,6 +28,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSubsystem;
     public static ShooterSubsystem shooterSubsystem;
     public static RumblerSubsystem rumblerSubsystem;
+    public static FireModeSubsystem fireModeSubsystem;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -46,7 +47,8 @@ public class Robot extends IterativeRobot {
         
     	RobotMap.init();
     	
-		driveSubsystem = new DriveSubsystem();
+        driveSubsystem = new DriveSubsystem();
+        fireModeSubsystem = new FireModeSubsystem();
 		shooterSubsystem = new ShooterSubsystem();
 		rumblerSubsystem = new RumblerSubsystem();
 		lidSubsystem = new LidSubsystem();
@@ -173,6 +175,8 @@ public class Robot extends IterativeRobot {
         
         previousRobotMode = currentRobotMode;
         currentRobotMode = newMode;
+
+        Robot.driveMode = RobotDriveMode.ARCADE;
 
         // if any subsystems need to know about mode changes, let
         // them know here.
