@@ -25,6 +25,7 @@ public class FireModeCommand extends Command {
     private List<String> patternSequence = new ArrayList<String>();
     private boolean patternActive = false;
     private Timer time;
+    private int firingBarrel = 0; //0 is left, 1 is right
     
     public FireModeCommand(Joystick joystick) {
         this.joystick = joystick;
@@ -39,10 +40,18 @@ public class FireModeCommand extends Command {
         shot = new RequestShotCommand();
     }
 
-    void startFirePattern() {
+    void startFirePattern(int barrel) {
+        firingBarrel = barrel;
         patternSequence.clear();
         patternActive = true;
         time.start();
+        System.out.println("Firing pattern started!");
+
+        if (barrel == 1) fill1.start();
+        else fill0.start();
+
+        fill1.cancel();
+        fill0.cancel();
     }
 
     void endFirePattern() {
@@ -65,6 +74,7 @@ public class FireModeCommand extends Command {
                         break;
                     }
                 }
+                
                 shot.start();
                 endFirePattern();
             }
@@ -80,23 +90,24 @@ public class FireModeCommand extends Command {
             if (joystick.getRawButton(2)) lidDown.start(); //down
             else lidDown.cancel();
 
-            if (joystick.getRawButton(4)) fill1.start(); //right
+            if (joystick.getRawButton(4)) startFirePattern(1); //right
             else fill1.cancel();
-            if (joystick.getRawButton(1)) fill0.start(); //left
+            if (joystick.getRawButton(1)) startFirePattern(0); //left
             else fill0.cancel();
 
-            if ((joystick.getRawButton(5) && joystick.getRawButton(6))) startFirePattern();
         }
+        else {
 
-        if (joystick.getRawButton(3)) patternSequence.add("up");
-        else if (joystick.getRawButton(2)) patternSequence.add("down");
-        else if (joystick.getRawButton(4)) patternSequence.add("right");
-        else if (joystick.getRawButton(1)) patternSequence.add("left");
-        else if (joystick.getRawButton(7)) patternSequence.add("X");
-        else if (joystick.getRawButton(8)) patternSequence.add("O");
-        else if (joystick.getRawButton(5) || joystick.getRawButton(6) || joystick.getRawButton(9) || joystick.getRawButton(10)) endFirePattern();
+            if (joystick.getRawButton(3)) patternSequence.add("up");
+            else if (joystick.getRawButton(2)) patternSequence.add("down");
+            else if (joystick.getRawButton(4)) patternSequence.add("right");
+            else if (joystick.getRawButton(1)) patternSequence.add("left");
+            else if (joystick.getRawButton(7)) patternSequence.add("X");
+            else if (joystick.getRawButton(8)) patternSequence.add("O");
+            else if (joystick.getRawButton(5) || joystick.getRawButton(6) || joystick.getRawButton(9) || joystick.getRawButton(10)) endFirePattern();
 
-        checkFirePattern();
+            checkFirePattern();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
