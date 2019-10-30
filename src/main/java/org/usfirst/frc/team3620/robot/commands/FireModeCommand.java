@@ -24,7 +24,7 @@ public class FireModeCommand extends Command {
     private String[] CORRECT_SEQUENCE = {"up", "up", "down", "down", "left", "right", "left", "right", "X", "O"};
     private List<String> patternSequence = new ArrayList<String>();
     private boolean patternActive = false;
-    private Timer time;
+    private Timer time = new Timer();
     private int firingBarrel = 0; //0 is left, 1 is right
     
     public FireModeCommand(Joystick joystick) {
@@ -45,22 +45,20 @@ public class FireModeCommand extends Command {
         patternSequence.clear();
         patternActive = true;
         time.start();
-        System.out.println("Firing pattern started!");
-
-        if (barrel == 1) fill1.start();
-        else fill0.start();
-
-        fill1.cancel();
-        fill0.cancel();
+        System.out.println("Starting firing pattern!");
     }
 
     void endFirePattern() {
-        shot.cancel();
-        patternSequence.clear();
-        patternActive = false;
-        time.stop();
-        time.reset();
-        System.out.println("Firing pattern ended!");
+        if (patternActive) {
+            shot.cancel();
+            fill0.cancel();
+            fill1.cancel();
+            patternSequence.clear();
+            patternActive = false;
+            time.stop();
+            time.reset();
+            System.out.println("Firing pattern ended!");
+        }
     }
 
     void checkFirePattern() {
@@ -68,14 +66,15 @@ public class FireModeCommand extends Command {
         //check for up up down down left right left right X O start
             if (patternSequence.size() == 10) {
                 for (int i = 0; i< 10; i++) {
-                    if (patternSequence.remove(0).equals(CORRECT_SEQUENCE[i])) return;
+                    if (patternSequence.remove(0).equals(CORRECT_SEQUENCE[i])) continue;
                     else {
                         endFirePattern();
-                        break;
+                        return;
                     }
                 }
-                
-                shot.start();
+
+                if (firingBarrel == 1) fill1.start();
+                else fill0.start();
                 endFirePattern();
             }
         }
@@ -91,20 +90,18 @@ public class FireModeCommand extends Command {
             else lidDown.cancel();
 
             if (joystick.getRawButton(4)) startFirePattern(1); //right
-            else fill1.cancel();
             if (joystick.getRawButton(1)) startFirePattern(0); //left
-            else fill0.cancel();
 
         }
         else {
 
-            if (joystick.getRawButton(3)) patternSequence.add("up");
-            else if (joystick.getRawButton(2)) patternSequence.add("down");
-            else if (joystick.getRawButton(4)) patternSequence.add("right");
-            else if (joystick.getRawButton(1)) patternSequence.add("left");
-            else if (joystick.getRawButton(7)) patternSequence.add("X");
-            else if (joystick.getRawButton(8)) patternSequence.add("O");
-            else if (joystick.getRawButton(5) || joystick.getRawButton(6) || joystick.getRawButton(9) || joystick.getRawButton(10)) endFirePattern();
+            if (joystick.getRawButtonReleased(3)) patternSequence.add("up");
+            else if (joystick.getRawButtonReleased(2)) patternSequence.add("down");
+            else if (joystick.getRawButtonReleased(4)) patternSequence.add("right");
+            else if (joystick.getRawButtonReleased(1)) patternSequence.add("left");
+            else if (joystick.getRawButtonReleased(7)) patternSequence.add("X");
+            else if (joystick.getRawButtonReleased(8)) patternSequence.add("O");
+            else if (joystick.getRawButtonReleased(5) || joystick.getRawButtonReleased(6) || joystick.getRawButtonReleased(9) || joystick.getRawButtonReleased(10)) endFirePattern();
 
             checkFirePattern();
         }
